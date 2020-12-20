@@ -14,37 +14,34 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-
-        $jsonPath =  storage_path() . "/data/users.json";
-        $userJson = file_get_contents($jsonPath);
-        $users = json_decode($userJson, true);
-        $data = array_filter($users);
-        $users = collect($data)
-            //->where("id","LIKE","45")
-            ->unique()
-            ->take(25)
-            ->all();
-//        dd($users);
-        $jsonPath =  storage_path() . "/data/logs.json";
-        $logsData = file_get_contents($jsonPath);
-        $logs = json_decode($logsData, true);
-        $data = array_filter($logs);
-        $logs = collect($data)->where('user_id',45);
-        $result = $logs->pipe(function ($collection) {
-            return collect([
-                'total_record' => $collection->count('user_id'),
-                'total_impression' => $collection->where('type','impression')->count('user_id'),
-                'total_conversion' => $collection->where('type','conversion')->count('user_id'),
-                'total_revenue' => $collection->where('type','conversion')->sum('revenue'),
-//                'per_day_revenue_raw' => $collection->where('type','conversion'),
-                'per_day_revenue' => $collection->where('type','conversion')->groupBy(DB::Raw('DATE(time)'))
-            ]);
-        });
-
-        return view('dashboard',compact('users','logs','result'));
-//        dd($result);
+//        $jsonPath =  storage_path() . "/data/users.json";
+//        $userJson = file_get_contents($jsonPath);
+//        $users = json_decode($userJson, true);
+//        $data = array_filter($users);
+//        $users = collect($data)->when(!empty($id),function($collection) use($id){
+//            return $collection->where("id","LIKE",$id);
+//        })
+//            //->take(25)
+//            ->get();
+////        dd($users);
+//        $jsonPath =  storage_path() . "/data/logs.json";
+//        $logsData = file_get_contents($jsonPath);
+//        $logs = json_decode($logsData, true);
+//        $data = array_filter($logs);
+//        $logs = collect($data)->where('user_id',45);
+//        $result = $logs->pipe(function ($collection) {
+//            return collect([
+//                'total_record' => $collection->count('user_id'),
+//                'total_impression' => $collection->where('type','impression')->count('user_id'),
+//                'total_conversion' => $collection->where('type','conversion')->count('user_id'),
+//                'total_revenue' => $collection->where('type','conversion')->sum('revenue'),
+////                'per_day_revenue_raw' => $collection->where('type','conversion'),
+//                'per_day_revenue' => $collection->where('type','conversion')->groupBy(DB::Raw('DATE(time)'))
+//            ]);
+//        });
+//        return view('dashboard',compact('users','logs','result'));
     }
 
     /**
