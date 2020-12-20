@@ -2,10 +2,13 @@
 
 ![Bar Chart](screenshots/ss1.png "Shot-1")
 
+### Demo link 
+* [http://anwarbaig.tk](http://anwarbaig.tk)
+
 # Framework / Library
 This project is created using Laravel + Vuejs
 
-#How to run/install
+# How to run/install
 ## After Cloning this repository. Follow below given steps!
 
 1 - Install required packages/dependecies for laravel
